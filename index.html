@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokyo Door-to-Door Concierge</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // Navy Blue
+                        accent: '#d97706',  // Gold
+                        light: '#f3f4f6',
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', '"Roboto"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Hero Background */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.imgur.com/Ft6U89s.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Language Utility Classes */
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
+        
+        /* Inline element switching */
+        span[data-lang-text] { display: none; }
+        span[data-lang-text].active { display: inline; }
+
+        /* Custom Scrollbar for text area */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        /* Header Navigation Scrollbar for Mobile */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-gray-50">
+
+    <!-- Header (Compacted UI) -->
+    <header class="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-12 md:h-14">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <h1 class="text-base md:text-lg font-bold text-primary tracking-tight leading-tight">Tokyo Door-to-Door</h1>
+                </div>
+
+                <!-- Right Side: Nav & Language (Side-by-Side on PC) -->
+                <div class="flex items-center gap-4">
+                    <!-- Navigation Links (PC) -->
+                    <nav class="hidden md:flex gap-4 text-xs font-bold text-gray-600">
+                        <a href="#airport" class="hover:text-primary transition">空港送迎</a>
+                        <a href="#morning" class="hover:text-primary transition">朝着プラン</a>
+                        <a href="#themepark" class="hover:text-primary transition">テーマパーク</a>
+                        <a href="#tours" class="hover:text-primary transition">名所ツアー</a>
+                        <a href="#others" class="hover:text-primary transition">その他</a>
+                    </nav>
+
+                    <!-- Language Switcher -->
+                    <div class="flex space-x-1 scale-90 md:scale-100">
+                        <button onclick="setLanguage('jp')" class="lang-btn px-2 py-0.5 text-xs font-bold rounded border border-primary hover:bg-primary hover:text-white transition-colors bg-primary text-white" data-lang="jp">JP</button>
+                        <button onclick="setLanguage('en')" class="lang-btn px-2 py-0.5 text-xs font-bold rounded border border-primary text-primary hover:bg-primary hover:text-white transition-colors" data-lang="en">EN</button>
+                        <button onclick="setLanguage('cn')" class="lang-btn px-2 py-0.5 text-xs font-bold rounded border border-primary text-primary hover:bg-primary hover:text-white transition-colors" data-lang="cn">CN</button>
+                        <button onclick="setLanguage('kr')" class="lang-btn px-2 py-0.5 text-xs font-bold rounded border border-primary text-primary hover:bg-primary hover:text-white transition-colors" data-lang="kr">KR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation (Compact Bar) -->
+            <nav class="md:hidden -mx-4 px-4 overflow-x-auto whitespace-nowrap hide-scrollbar border-t border-gray-100 py-1.5 bg-gray-50/50">
+                <a href="#airport" class="inline-block px-3 py-1 mr-1 text-xs font-bold text-primary bg-white rounded-full border border-blue-100 shadow-sm">空港送迎</a>
+                <a href="#morning" class="inline-block px-3 py-1 mr-1 text-xs font-bold text-primary bg-white rounded-full border border-blue-100 shadow-sm">朝着プラン</a>
+                <a href="#themepark" class="inline-block px-3 py-1 mr-1 text-xs font-bold text-primary bg-white rounded-full border border-blue-100 shadow-sm">テーマパーク</a>
+                <a href="#tours" class="inline-block px-3 py-1 mr-1 text-xs font-bold text-primary bg-white rounded-full border border-blue-100 shadow-sm">名所ツアー</a>
+                <a href="#others" class="inline-block px-3 py-1 text-xs font-bold text-primary bg-white rounded-full border border-blue-100 shadow-sm">その他</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg h-screen min-h-[500px] flex items-center justify-center text-white px-4 pt-16">
+        <div class="text-center max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-tight drop-shadow-lg">
+                <span class="lang-jp lang-content active">「移動」のストレスを捨てて、<br>100%「旅」を楽しもう。</span>
+                <span class="lang-en lang-content">Forget the Stress of Travel.<br>Enjoy Your Trip 100%.</span>
+                <span class="lang-cn lang-content">抛开移动的压力<br>尽情享受100%的旅程。</span>
+                <span class="lang-kr lang-content">이동의 스트레스는 버리고,<br>여행을 100% 즐기세요.</span>
+            </h2>
+            <p class="text-lg md:text-2xl opacity-95 font-light drop-shadow-md">
+                <span class="lang-jp lang-content active">空港から宿へ、宿から観光地へ。<br>荷物と乗り換えから解放されるプライベート送迎。</span>
+                <span class="lang-en lang-content">From airport to hotel, hotel to sightseeing.<br>Private transfers free you from luggage and transfers.</span>
+                <span class="lang-cn lang-content">从机场到住宿，从住宿到景点。<br>私人接送让您摆脱行李和换乘的烦恼。</span>
+                <span class="lang-kr lang-content">공항에서 숙소로, 숙소에서 관광지로.<br>짐과 환승에서 해방되는 프라이빗 픽업 서비스.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="features" class="py-10 md:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-bold text-center text-primary mb-10">
+                <span class="lang-jp lang-content active">選ばれる理由</span>
+                <span class="lang-en lang-content">Why Choose Us?</span>
+                <span class="lang-cn lang-content">选择我们的理由</span>
+                <span class="lang-kr lang-content">우리를 선택하는 이유</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="p-5 rounded-xl bg-gray-50 border border-gray-100 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-blue-100 text-primary rounded-full flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-suitcase-rolling"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800">
+                            <span class="lang-jp lang-content active">重い荷物からの解放</span>
+                            <span class="lang-en lang-content">Free from Heavy Luggage</span>
+                            <span class="lang-cn lang-content">摆脱沉重行李</span>
+                            <span class="lang-kr lang-content">무거운 짐에서 해방</span>
+                        </h4>
+                    </div>
+                    <p class="text-gray-600 text-sm md:text-base pl-16 md:pl-0">
+                        <span class="lang-jp lang-content active">大きなスーツケースも車に載せるだけ。階段も乗り換えもありません。</span>
+                        <span class="lang-en lang-content">Just load your big suitcases into the car. No stairs, no transfers.</span>
+                        <span class="lang-cn lang-content">只需将大行李箱装上车。没有楼梯，无需换乘。</span>
+                        <span class="lang-kr lang-content">큰 여행 가방도 차에 싣기만 하면 됩니다. 계단도 환승도 없습니다.</span>
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="p-5 rounded-xl bg-gray-50 border border-gray-100 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-blue-100 text-primary rounded-full flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800">
+                            <span class="lang-jp lang-content active">時間を有効活用</span>
+                            <span class="lang-en lang-content">Maximize Your Time</span>
+                            <span class="lang-cn lang-content">有效利用时间</span>
+                            <span class="lang-kr lang-content">시간의 효율적 활용</span>
+                        </h4>
+                    </div>
+                    <p class="text-gray-600 text-sm md:text-base pl-16 md:pl-0">
+                        <span class="lang-jp lang-content active">道に迷う時間やコインロッカーを探す時間を、観光の時間に変えます。</span>
+                        <span class="lang-en lang-content">Turn time spent getting lost or finding lockers into sightseeing time.</span>
+                        <span class="lang-cn lang-content">将迷路或寻找储物柜的时间转化为观光时间。</span>
+                        <span class="lang-kr lang-content">길을 잃거나 코인 로커를 찾는 시간을 관광 시간으로 바꿉니다.</span>
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="p-5 rounded-xl bg-gray-50 border border-gray-100 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-blue-100 text-primary rounded-full flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800">
+                            <span class="lang-jp lang-content active">完全プライベート空間</span>
+                            <span class="lang-en lang-content">Private Space</span>
+                            <span class="lang-cn lang-content">完全私人空间</span>
+                            <span class="lang-kr lang-content">완전 프라이빗 공간</span>
+                        </h4>
+                    </div>
+                    <p class="text-gray-600 text-sm md:text-base pl-16 md:pl-0">
+                        <span class="lang-jp lang-content active">最大9名まで乗車可能。電車と違い、リラックスして移動できます。</span>
+                        <span class="lang-en lang-content">Up to 9 passengers. Relax unlike crowded trains.</span>
+                        <span class="lang-cn lang-content">最多可乘坐9人。与电车不同，您可以放松身心。</span>
+                        <span class="lang-kr lang-content">최대 9명까지 승차 가능. 전철과 달리 편안하게 이동할 수 있습니다.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Airport -->
+    <section id="airport" class="py-10 bg-gray-100">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-bold text-primary">
+                    <span class="lang-jp lang-content active">空港送迎</span>
+                    <span class="lang-en lang-content">Airport Transfer</span>
+                    <span class="lang-cn lang-content">机场接送</span>
+                    <span class="lang-kr lang-content">공항 픽업</span>
+                </h3>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md p-6 md:p-8">
+                <p class="mb-6 text-gray-600 text-center">
+                    <span class="lang-jp lang-content active">空港⇔宿の移動をドア・ツー・ドアで快適に。</span>
+                    <span class="lang-en lang-content">Comfortable door-to-door service between Airport & Hotel.</span>
+                    <span class="lang-cn lang-content">机场⇔住宿，门到门舒适移动。</span>
+                    <span class="lang-kr lang-content">공항⇔숙소 이동을 도어 투 도어로 쾌적하게.</span>
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Narita -->
+                    <div class="border border-gray-100 rounded-lg p-5 bg-gray-50 flex flex-col justify-between group hover:border-accent/50 transition">
+                        <div>
+                            <div class="font-bold text-lg text-gray-800 flex items-start gap-2 mb-2">
+                                <i class="fa-solid fa-location-dot text-blue-500 mt-1"></i>
+                                <div>
+                                    <span class="lang-jp lang-content active">成田送迎（空港 ⇔ 宿）</span>
+                                    <span class="lang-en lang-content">Narita Transfer (Airport ⇔ Hotel)</span>
+                                    <span class="lang-cn lang-content">成田接送（机场 ⇔ 住宿）</span>
+                                    <span class="lang-kr lang-content">나리타 픽업 (공항 ⇔ 숙소)</span>
+                                </div>
+                            </div>
+                            <div class="text-2xl font-bold text-accent text-right mb-4">¥30,000</div>
+                        </div>
+                        <button onclick="fillBookingForm('narita_airport')" class="w-full py-2 border-2 border-accent text-accent font-bold rounded hover:bg-accent hover:text-white transition">
+                            <span class="lang-jp lang-content active">このプランを問い合わせる</span>
+                            <span class="lang-en lang-content">Inquire This Plan</span>
+                            <span class="lang-cn lang-content">查询此方案</span>
+                            <span class="lang-kr lang-content">이 플랜 문의하기</span>
+                        </button>
+                    </div>
+
+                    <!-- Haneda -->
+                    <div class="border border-gray-100 rounded-lg p-5 bg-gray-50 flex flex-col justify-between group hover:border-accent/50 transition">
+                        <div>
+                            <div class="font-bold text-lg text-gray-800 flex items-start gap-2 mb-2">
+                                <i class="fa-solid fa-location-dot text-blue-500 mt-1"></i>
+                                <div>
+                                    <span class="lang-jp lang-content active">羽田送迎（空港 ⇔ 宿）</span>
+                                    <span class="lang-en lang-content">Haneda Transfer (Airport ⇔ Hotel)</span>
+                                    <span class="lang-cn lang-content">羽田接送（机场 ⇔ 住宿）</span>
+                                    <span class="lang-kr lang-content">하네다 픽업 (공항 ⇔ 숙소)</span>
+                                </div>
+                            </div>
+                            <div class="text-2xl font-bold text-accent text-right mb-4">¥20,000</div>
+                        </div>
+                        <button onclick="fillBookingForm('haneda_airport')" class="w-full py-2 border-2 border-accent text-accent font-bold rounded hover:bg-accent hover:text-white transition">
+                            <span class="lang-jp lang-content active">このプランを問い合わせる</span>
+                            <span class="lang-en lang-content">Inquire This Plan</span>
+                            <span class="lang-cn lang-content">查询此方案</span>
+                            <span class="lang-kr lang-content">이 플랜 문의하기</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Morning Arrival -->
+    <section id="morning" class="py-10 bg-white">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-bold text-primary mb-3">
+                    <span class="lang-jp lang-content active">朝着プラン（空港送迎＋観光）</span>
+                    <span class="lang-en lang-content">Morning Arrival Plan</span>
+                    <span class="lang-cn lang-content">早班到达套餐</span>
+                    <span class="lang-kr lang-content">아침 도착 플랜</span>
+                </h3>
+                <p class="text-gray-600">
+                    <span class="lang-jp lang-content active">朝便で早く到着しても、空港ピックアップ後にチェックインまで観光を楽しめます。</span>
+                    <span class="lang-en lang-content">Even with an early arrival, enjoy sightseeing after pickup until check-in.</span>
+                    <span class="lang-cn lang-content">即使早班机到达，接机后到入住前也可以享受观光。</span>
+                    <span class="lang-kr lang-content">아침 일찍 도착하셔도 공항 픽업 후 체크인까지 관광을 즐기실 수 있습니다.</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Plan A -->
+                <div class="bg-blue-50 rounded-xl p-6 border border-blue-100 flex flex-col h-full">
+                    <div class="flex-grow">
+                        <div class="bg-primary text-white text-sm font-bold px-3 py-1 rounded-full inline-block mb-3">Plan A</div>
+                        <h4 class="text-xl font-bold text-primary mb-4">
+                            <span class="lang-jp lang-content active">空港送迎 ＋ 観光</span>
+                            <span class="lang-en lang-content">Transfer + Sightseeing</span>
+                            <span class="lang-cn lang-content">机场接送 + 观光</span>
+                            <span class="lang-kr lang-content">공항 픽업 + 관광</span>
+                        </h4>
+                        <p class="text-sm text-gray-700 mb-4">
+                            <span class="lang-jp lang-content active">空港ピックアップ後、チェックインまで観光を楽しめます。</span>
+                            <span class="lang-en lang-content">Enjoy sightseeing after pickup until hotel check-in.</span>
+                            <span class="lang-cn lang-content">机场接机后，在入住前享受观光。</span>
+                            <span class="lang-kr lang-content">공항 픽업 후, 체크인까지 관광을 즐길 수 있습니다.</span>
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="bg-white p-3 rounded shadow-sm">
+                                <div class="font-bold text-gray-800 text-sm mb-1">
+                                    <span class="lang-jp lang-content active">成田空港 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 観光 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 宿</span>
+                                    <span class="lang-en lang-content">Narita <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> Tour <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> Hotel</span>
+                                    <span class="lang-cn lang-content">成田 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 观光 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 住宿</span>
+                                    <span class="lang-kr lang-content">나리타 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 관광 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 숙소</span>
+                                </div>
+                                <div class="text-accent font-bold">¥47,000</div>
+                                <div class="text-xs text-gray-500 mt-1">
+                                    <span class="lang-jp lang-content active">※成田周辺（成田山新勝寺 & 表参道等）観光4時間</span>
+                                    <span class="lang-en lang-content">*Narita area tour (4 hours)</span>
+                                </div>
+                            </li>
+                            <li class="bg-white p-3 rounded shadow-sm">
+                                <div class="font-bold text-gray-800 text-sm mb-1">
+                                    <span class="lang-jp lang-content active">羽田空港 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 観光 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 宿</span>
+                                    <span class="lang-en lang-content">Haneda <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> Tour <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> Hotel</span>
+                                    <span class="lang-cn lang-content">羽田 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 观光 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 住宿</span>
+                                    <span class="lang-kr lang-content">하네다 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 관광 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 숙소</span>
+                                </div>
+                                <div class="text-accent font-bold">¥43,000</div>
+                                <div class="text-xs text-gray-500 mt-1">
+                                    <span class="lang-jp lang-content active">※東京周辺（お台場、東京タワー、チームラボプラネッツ TOKYO、SHIBUYA SKY、東京スカイツリー & ソラマチ等）観光4時間</span>
+                                    <span class="lang-en lang-content">*Tokyo area tour (4 hours): Odaiba, Tokyo Tower, teamLab, Shibuya Sky, Skytree etc.</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-xs text-gray-500 space-y-1 bg-white/50 p-2 rounded mb-4">
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-circle-info mr-1 mt-0.5"></i>
+                                <span>
+                                    <span class="lang-jp lang-content active">延長1時間 6,000円</span>
+                                    <span class="lang-en lang-content">Extension: ¥6,000/hr</span>
+                                    <span class="lang-cn lang-content">延长1小时 6,000日元</span>
+                                    <span class="lang-kr lang-content">1시간 연장 6,000엔</span>
+                                </span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-circle-info mr-1 mt-0.5"></i>
+                                <span>
+                                    <span class="lang-jp lang-content active">観光ルートはカスタマイズ可能</span>
+                                    <span class="lang-en lang-content">Route is customizable</span>
+                                    <span class="lang-cn lang-content">观光路线可定制</span>
+                                    <span class="lang-kr lang-content">관광 루트는 맞춤 설정 가능</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="fillBookingForm('plan_a')" class="w-full py-2 border-2 border-primary text-primary font-bold rounded hover:bg-primary hover:text-white transition bg-white">
+                        <span class="lang-jp lang-content active">このプランを問い合わせる</span>
+                        <span class="lang-en lang-content">Inquire This Plan</span>
+                        <span class="lang-cn lang-content">查询此方案</span>
+                        <span class="lang-kr lang-content">이 플랜 문의하기</span>
+                    </button>
+                </div>
+
+                <!-- Plan B -->
+                <div class="bg-amber-50 rounded-xl p-6 border border-amber-100 flex flex-col h-full">
+                    <div class="flex-grow">
+                        <div class="bg-accent text-white text-sm font-bold px-3 py-1 rounded-full inline-block mb-3">Plan B</div>
+                        <h4 class="text-xl font-bold text-accent mb-4">
+                            <span class="lang-jp lang-content active">荷物だけ宿へ・手ぶら観光</span>
+                            <span class="lang-en lang-content">Luggage Drop & Go</span>
+                            <span class="lang-cn lang-content">行李直达・空手观光</span>
+                            <span class="lang-kr lang-content">짐만 숙소로・빈손 관광</span>
+                        </h4>
+                        <p class="text-sm text-gray-700 mb-4">
+                            <span class="lang-jp lang-content active">空港ピックアップ後にお客様を都内駅に送迎するので手ぶら観光へ。ドライバーが荷物を宿へ運びます。</span>
+                            <span class="lang-en lang-content">We drop you off at a station for sightseeing, and the driver takes your luggage to the hotel.</span>
+                            <span class="lang-cn lang-content">接机后送您到市内车站观光，司机将行李运送至住宿。</span>
+                            <span class="lang-kr lang-content">공항 픽업 후 시내 역으로 모셔다 드리니 빈손으로 관광하세요. 기사가 짐을 숙소로 운반합니다.</span>
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="bg-white p-3 rounded shadow-sm">
+                                <div class="font-bold text-gray-800 text-sm mb-1">
+                                    <span class="lang-jp lang-content active">成田空港 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 都内駅で降車 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 荷物は宿へ</span>
+                                    <span class="lang-en lang-content">Narita Airport <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> Tokyo Station Drop <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> Luggage to Hotel</span>
+                                    <span class="lang-cn lang-content">成田 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 车站下车 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 行李至住宿</span>
+                                    <span class="lang-kr lang-content">나리타 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 역 하차 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 짐은 숙소로</span>
+                                </div>
+                                <div class="text-accent font-bold">¥35,000</div>
+                            </li>
+                            <li class="bg-white p-3 rounded shadow-sm">
+                                <div class="font-bold text-gray-800 text-sm mb-1">
+                                    <span class="lang-jp lang-content active">羽田空港 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 都内駅で降車 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 荷物は宿へ</span>
+                                    <span class="lang-en lang-content">Haneda Airport <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> Tokyo Station Drop <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> Luggage to Hotel</span>
+                                    <span class="lang-cn lang-content">羽田 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 车站下车 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 行李至住宿</span>
+                                    <span class="lang-kr lang-content">하네다 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 역 하차 <i class="fa-solid fa-arrow-right text-gray-400 mx-1"></i> 짐은 숙소로</span>
+                                </div>
+                                <div class="text-accent font-bold">¥25,000</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <button onclick="fillBookingForm('plan_b')" class="w-full py-2 border-2 border-accent text-accent font-bold rounded hover:bg-accent hover:text-white transition bg-white">
+                        <span class="lang-jp lang-content active">このプランを問い合わせる</span>
+                        <span class="lang-en lang-content">Inquire This Plan</span>
+                        <span class="lang-cn lang-content">查询此方案</span>
+                        <span class="lang-kr lang-content">이 플랜 문의하기</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Theme Parks -->
+    <section id="themepark" class="py-10 bg-blue-900 text-white">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-4">
+                <span class="lang-jp lang-content active">テーマパーク送迎</span>
+                <span class="lang-en lang-content">Theme Park Transfers</span>
+                <span class="lang-cn lang-content">主题乐园接送</span>
+                <span class="lang-kr lang-content">테마파크 픽업</span>
+            </h3>
+            <p class="text-center text-blue-200 mb-10 max-w-4xl mx-auto leading-relaxed">
+                <span class="lang-jp lang-content active">思いっきり遊ぶために「行き」は体力温存。<br>遊び疲れた「帰り」はお土産を持った移動から解放されて宿まで楽に帰宅。<br>往復予約も可能です。</span>
+                <span class="lang-en lang-content">Save energy on the way there, and after a long day, enjoy a direct ride to your hotel without carrying luggage. Round trips available.</span>
+                <span class="lang-cn lang-content">去程保存体力尽情游玩，回程无需提着行李移动，直接送您回住宿。可预约往返。</span>
+                <span class="lang-kr lang-content">마음껏 놀기 위해 갈 때는 체력을 아끼고, 놀다 지친 올 때는 짐 없이 숙소까지 직행하세요. 왕복 예약도 가능합니다.</span>
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Park 1 -->
+                <div class="bg-white/10 backdrop-blur rounded-lg border border-white/20 hover:bg-white/20 transition overflow-hidden flex flex-col">
+                    <div class="h-40 bg-gray-300 w-full object-cover relative">
+                         <img src="https://i.imgur.com/M73lD74.jpeg" alt="Disney" class="w-full h-full object-cover opacity-80">
+                    </div>
+                    <div class="p-5 flex-grow">
+                        <h4 class="font-bold text-lg mb-1">
+                            <span class="lang-jp lang-content active">東京ディズニーリゾート</span>
+                            <span class="lang-en lang-content">Tokyo Disney Resort</span>
+                            <span class="lang-cn lang-content">东京迪士尼度假区</span>
+                            <span class="lang-kr lang-content">도쿄 디즈니 리조트</span>
+                        </h4>
+                        <p class="text-accent font-bold text-xl mb-3">¥20,000</p>
+                        <a href="https://www.tokyodisneyresort.jp/" target="_blank" class="text-xs text-blue-200 hover:text-white underline"><i class="fa-solid fa-up-right-from-square mr-1"></i>Official Site</a>
+                    </div>
+                    <div class="p-4 pt-0">
+                         <button onclick="fillBookingForm('disney')" class="w-full py-1.5 border border-white/50 text-white text-sm rounded hover:bg-white hover:text-primary transition">
+                            <span class="lang-jp lang-content active">問い合わせ</span>
+                            <span class="lang-en lang-content">Inquire</span>
+                            <span class="lang-cn lang-content">咨询</span>
+                            <span class="lang-kr lang-content">문의</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Park 2 -->
+                <div class="bg-white/10 backdrop-blur rounded-lg border border-white/20 hover:bg-white/20 transition overflow-hidden flex flex-col">
+                    <div class="h-40 bg-gray-300 w-full object-cover relative">
+                        <img src="https://i.imgur.com/4aFJqMV.jpeg" alt="teamLab" class="w-full h-full object-cover opacity-80">
+                    </div>
+                    <div class="p-5 flex-grow">
+                        <h4 class="font-bold text-lg mb-1">
+                            <span class="lang-jp lang-content active">チームラボプラネッツ TOKYO</span>
+                            <span class="lang-en lang-content">teamLab Planets TOKYO</span>
+                            <span class="lang-cn lang-content">teamLab Planets TOKYO</span>
+                            <span class="lang-kr lang-content">팀랩 플래닛 도쿄</span>
+                        </h4>
+                        <p class="text-accent font-bold text-xl mb-3">¥20,000</p>
+                        <a href="https://www.teamlab.art/jp/e/planets/" target="_blank" class="text-xs text-blue-200 hover:text-white underline"><i class="fa-solid fa-up-right-from-square mr-1"></i>Official Site</a>
+                    </div>
+                    <div class="p-4 pt-0">
+                         <button onclick="fillBookingForm('teamlab')" class="w-full py-1.5 border border-white/50 text-white text-sm rounded hover:bg-white hover:text-primary transition">
+                            <span class="lang-jp lang-content active">問い合わせ</span>
+                            <span class="lang-en lang-content">Inquire</span>
+                            <span class="lang-cn lang-content">咨询</span>
+                            <span class="lang-kr lang-content">문의</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Park 3 -->
+                <div class="bg-white/10 backdrop-blur rounded-lg border border-white/20 hover:bg-white/20 transition overflow-hidden flex flex-col">
+                    <div class="h-40 bg-gray-300 w-full object-cover relative">
+                         <img src="https://i.imgur.com/aH3i5t3.jpeg" alt="Harry Potter" class="w-full h-full object-cover opacity-80">
+                    </div>
+                    <div class="p-5 flex-grow">
+                        <h4 class="font-bold text-lg mb-1">
+                            <span class="lang-jp lang-content active">ハリーポッター（スタジオツアー東京）</span>
+                            <span class="lang-en lang-content">Harry Potter (Studio Tour)</span>
+                            <span class="lang-cn lang-content">哈利波特（东京影城之旅）</span>
+                            <span class="lang-kr lang-content">해리 포터 (스튜디오 투어 도쿄)</span>
+                        </h4>
+                        <p class="text-accent font-bold text-xl mb-3">¥20,000</p>
+                        <a href="https://www.wbstudiotour.jp/" target="_blank" class="text-xs text-blue-200 hover:text-white underline"><i class="fa-solid fa-up-right-from-square mr-1"></i>Official Site</a>
+                    </div>
+                    <div class="p-4 pt-0">
+                         <button onclick="fillBookingForm('harry_potter')" class="w-full py-1.5 border border-white/50 text-white text-sm rounded hover:bg-white hover:text-primary transition">
+                            <span class="lang-jp lang-content active">問い合わせ</span>
+                            <span class="lang-en lang-content">Inquire</span>
+                            <span class="lang-cn lang-content">咨询</span>
+                            <span class="lang-kr lang-content">문의</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Park 4 -->
+                <div class="bg-white/10 backdrop-blur rounded-lg border border-white/20 hover:bg-white/20 transition overflow-hidden flex flex-col">
+                      <div class="h-40 bg-gray-300 w-full object-cover relative">
+                          <img src="https://i.imgur.com/6edAmVS.jpeg" alt="Sanrio" class="w-full h-full object-cover opacity-80">
+                    </div>
+                    <div class="p-5 flex-grow">
+                        <h4 class="font-bold text-lg mb-1">
+                            <span class="lang-jp lang-content active">サンリオピューロランド</span>
+                            <span class="lang-en lang-content">Sanrio Puroland</span>
+                            <span class="lang-cn lang-content">三丽鸥彩虹乐园</span>
+                            <span class="lang-kr lang-content">산리오 퓨로랜드</span>
+                        </h4>
+                        <p class="text-accent font-bold text-xl mb-3">¥30,000</p>
+                        <a href="https://www.puroland.jp/" target="_blank" class="text-xs text-blue-200 hover:text-white underline"><i class="fa-solid fa-up-right-from-square mr-1"></i>Official Site</a>
+                    </div>
+                    <div class="p-4 pt-0">
+                         <button onclick="fillBookingForm('sanrio')" class="w-full py-1.5 border border-white/50 text-white text-sm rounded hover:bg-white hover:text-primary transition">
+                            <span class="lang-jp lang-content active">問い合わせ</span>
+                            <span class="lang-en lang-content">Inquire</span>
+                            <span class="lang-cn lang-content">咨询</span>
+                            <span class="lang-kr lang-content">문의</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Tours (Accordion) -->
+    <section id="tours" class="py-10 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h3 class="text-2xl md:text-3xl font-bold text-center text-primary mb-2">
+                <span class="lang-jp lang-content active">名所ツアー</span>
+                <span class="lang-en lang-content">Sightseeing Tours</span>
+                <span class="lang-cn lang-content">名胜游览</span>
+                <span class="lang-kr lang-content">명소 투어</span>
+            </h3>
+            <p class="text-center text-gray-600 mb-8">
+                <span class="lang-jp lang-content active">1日貸切チャーター 80,000円（定員9名）</span>
+                <span class="lang-en lang-content">1 Day Private Charter ¥80,000 (Max 9 people)</span>
+                <span class="lang-cn lang-content">1日包车 80,000日元（定员9名）</span>
+                <span class="lang-kr lang-content">1일 전세 80,000엔 (정원 9명)</span>
+            </p>
+
+            <div class="space-y-4">
+                <!-- Tour 1: Fuji -->
+                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                    <div class="p-4 md:p-6 flex justify-between items-center cursor-pointer hover:bg-gray-50 transition" onclick="toggleAccordion('tour-fuji')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-primary text-xl"><i class="fa-solid fa-mountain"></i></div>
+                            <h4 class="font-bold text-lg text-gray-800">
+                                <span class="lang-jp lang-content active">富士山 1日ツアー</span>
+                                <span class="lang-en lang-content">Mt. Fuji 1-Day Tour</span>
+                                <span class="lang-cn lang-content">富士山一日游</span>
+                                <span class="lang-kr lang-content">후지산 1일 투어</span>
+                            </h4>
+                        </div>
+                        <button class="text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
+                            <i class="fa-solid fa-chevron-down mr-1"></i> Details
+                        </button>
+                    </div>
+                    <div id="tour-fuji" class="hidden border-t border-gray-100 bg-gray-50 p-4 md:p-6 text-sm md:text-base">
+                        <ul class="space-y-2 border-l-2 border-primary pl-4 ml-2 mb-4">
+                            <li><span class="font-bold text-primary w-16 inline-block">07:00</span> <span class="lang-jp lang-content active">宿へお迎え</span><span class="lang-en lang-content">Pick up at Hotel</span></li>
+                            <li><span class="font-bold text-primary w-16 inline-block">09:00</span> <span class="lang-jp lang-content active">河口湖 大石公園</span><span class="lang-en lang-content">Kawaguchiko Oishi Park</span></li>
+                            <li><span class="font-bold text-primary w-16 inline-block">10:00</span> <span class="lang-jp lang-content active">西湖いやしの里根場</span><span class="lang-en lang-content">Saiko Iyashi-no-Sato Nenba</span></li>
+                            <li><span class="font-bold text-primary w-16 inline-block">11:40</span> <span class="lang-jp lang-content active">忍野八海＆ランチ</span><span class="lang-en lang-content">Oshino Hakkai & Lunch</span></li>
+                            <li><span class="font-bold text-primary w-16 inline-block">13:30</span> <span class="lang-jp lang-content active">新倉山浅間公園</span><span class="lang-en lang-content">Arakurayama Sengen Park</span></li>
+                            <li><span class="font-bold text-primary w-16 inline-block">15:00</span> <span class="lang-jp lang-content active">御殿場プレミアム・アウトレット</span><span class="lang-en lang-content">Gotemba Premium Outlets</span></li>
+                            <li><span class="font-bold text-primary w-16 inline-block">19:00</span> <span class="lang-jp lang-content active">自宅到着</span><span class="lang-en lang-content">Drop off at Home</span></li>
+                        </ul>
+                         <button onclick="fillBookingForm('tour_fuji')" class="w-full py-2 bg-gray-100 text-gray-700 font-bold rounded hover:bg-gray-200 transition">
+                            <span class="lang-jp lang-content active">このツアーを問い合わせる</span>
+                            <span class="lang-en lang-content">Inquire This Tour</span>
+                            <span class="lang-cn lang-content">查询此行程</span>
+                            <span class="lang-kr lang-content">이 투어 문의하기</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tour 2: Nikko -->
+                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                    <div class="p-4 md:p-6 flex justify-between items-center cursor-pointer hover:bg-gray-50 transition" onclick="toggleAccordion('tour-nikko')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-primary text-xl"><i class="fa-solid fa-torii-gate"></i></div>
+                            <h4 class="font-bold text-lg text-gray-800">
+                                <span class="lang-jp lang-content active">日光 1日ツアー</span>
+                                <span class="lang-en lang-content">Nikko 1-Day Tour</span>
+                                <span class="lang-cn lang-content">日光一日游</span>
+                                <span class="lang-kr lang-content">닛코 1일 투어</span>
+                            </h4>
+                        </div>
+                        <button class="text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
+                            <i class="fa-solid fa-chevron-down mr-1"></i> Details
+                        </button>
+                    </div>
+                    <div id="tour-nikko" class="hidden border-t border-gray-100 bg-gray-50 p-4 md:p-6 text-sm md:text-base">
+                        <ul class="space-y-2 border-l-2 border-primary pl-4 ml-2 mb-4">
+                            <li><span class="font-bold text-primary w-16 inline-block">07:00</span> <span class="lang-jp lang-content active">宿へお迎え</span><span class="lang-en lang-content">Pick up at Hotel</span></li>
+                            <li>
+                                <span class="font-bold text-primary w-16 inline-block">Spots</span>
+                                <span class="lang-jp lang-content active">日光東照宮、神橋、華厳の滝、日光江戸村、栃木和牛ディナー</span>
+                                <span class="lang-en lang-content">Nikko Toshogu Shrine, Shinkyo Bridge, Kegon Falls, Edo Wonderland, Tochigi Wagyu Dinner</span>
+                            </li>
+                            <li><span class="font-bold text-primary w-16 inline-block">19:00</span> <span class="lang-jp lang-content active">自宅到着</span><span class="lang-en lang-content">Drop off at Home</span></li>
+                        </ul>
+                        <button onclick="fillBookingForm('tour_nikko')" class="w-full py-2 bg-gray-100 text-gray-700 font-bold rounded hover:bg-gray-200 transition">
+                            <span class="lang-jp lang-content active">このツアーを問い合わせる</span>
+                            <span class="lang-en lang-content">Inquire This Tour</span>
+                            <span class="lang-cn lang-content">查询此行程</span>
+                            <span class="lang-kr lang-content">이 투어 문의하기</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tour 3: Kamakura -->
+                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                    <div class="p-4 md:p-6 flex justify-between items-center cursor-pointer hover:bg-gray-50 transition" onclick="toggleAccordion('tour-kamakura')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-primary text-xl"><i class="fa-solid fa-umbrella-beach"></i></div>
+                            <h4 class="font-bold text-lg text-gray-800">
+                                <span class="lang-jp lang-content active">鎌倉 1日ツアー</span>
+                                <span class="lang-en lang-content">Kamakura 1-Day Tour</span>
+                                <span class="lang-cn lang-content">镰仓一日游</span>
+                                <span class="lang-kr lang-content">가마쿠라 1일 투어</span>
+                            </h4>
+                        </div>
+                        <button class="text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
+                            <i class="fa-solid fa-chevron-down mr-1"></i> Details
+                        </button>
+                    </div>
+                    <div id="tour-kamakura" class="hidden border-t border-gray-100 bg-gray-50 p-4 md:p-6 text-sm md:text-base">
+                        <ul class="space-y-2 border-l-2 border-primary pl-4 ml-2 mb-4">
+                            <li><span class="font-bold text-primary w-16 inline-block">07:00</span> <span class="lang-jp lang-content active">宿へお迎え</span><span class="lang-en lang-content">Pick up at Hotel</span></li>
+                            <li>
+                                <span class="font-bold text-primary w-16 inline-block">Spots</span>
+                                <span class="lang-jp lang-content active">鎌倉大仏、スラムダンク聖地、江の島、着物体験、食べ歩き</span>
+                                <span class="lang-en lang-content">Great Buddha, Slam Dunk Location, Enoshima, Kimono Experience, Street Food</span>
+                            </li>
+                            <li><span class="font-bold text-primary w-16 inline-block">19:00</span> <span class="lang-jp lang-content active">自宅到着</span><span class="lang-en lang-content">Drop off at Home</span></li>
+                        </ul>
+                         <button onclick="fillBookingForm('tour_kamakura')" class="w-full py-2 bg-gray-100 text-gray-700 font-bold rounded hover:bg-gray-200 transition">
+                            <span class="lang-jp lang-content active">このツアーを問い合わせる</span>
+                            <span class="lang-en lang-content">Inquire This Tour</span>
+                            <span class="lang-cn lang-content">查询此行程</span>
+                            <span class="lang-kr lang-content">이 투어 문의하기</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5 & Notes -->
+    <section id="others" class="py-10 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <!-- Other Transfers -->
+            <div class="mb-12">
+                <h3 class="text-xl font-bold text-primary mb-4 border-l-4 border-accent pl-3">
+                    <span class="lang-jp lang-content active">その他・近距離送迎</span>
+                    <span class="lang-en lang-content">Other / Short Distance</span>
+                    <span class="lang-cn lang-content">其他・短途接送</span>
+                    <span class="lang-kr lang-content">기타・단거리 픽업</span>
+                </h3>
+                <div class="bg-gray-50 rounded p-4 mb-4">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                            <span class="text-gray-800 text-sm md:text-base">
+                                <span class="lang-jp lang-content active">東京駅・新宿駅・品川駅・23区内駅 <i class="fa-solid fa-arrow-right mx-1"></i> 宿</span>
+                                <span class="lang-en lang-content">Tokyo/Shinjuku/Shinagawa/23 Wards <i class="fa-solid fa-arrow-right mx-1"></i> Hotel</span>
+                            </span>
+                            <span class="font-bold text-accent">¥20,000</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gray-800 text-sm md:text-base">
+                                <span class="lang-jp lang-content active">東京・上野・浅草駅（墨田・台東区） <i class="fa-solid fa-arrow-right mx-1"></i> 宿（葛飾区四つ木・立石・お花茶屋等）</span>
+                                <span class="lang-en lang-content">Tokyo/Ueno/Asakusa <i class="fa-solid fa-arrow-right mx-1"></i> Hotel (Katsushika Area)</span>
+                            </div>
+                            <span class="font-bold text-accent">¥15,000</span>
+                        </div>
+                    </div>
+                </div>
+                 <button onclick="fillBookingForm('others')" class="w-full py-2 border-2 border-gray-300 text-gray-600 font-bold rounded hover:bg-gray-600 hover:text-white transition">
+                    <span class="lang-jp lang-content active">その他エリアについて問い合わせる</span>
+                    <span class="lang-en lang-content">Inquire About Other Areas</span>
+                    <span class="lang-cn lang-content">查询其他地区</span>
+                    <span class="lang-kr lang-content">기타 지역 문의</span>
+                </button>
+            </div>
+
+            <!-- Important Notes (Consolidated & Aligned) -->
+            <div id="notes" class="text-sm text-gray-500 bg-gray-100 p-6 rounded-lg">
+                <h4 class="font-bold mb-4 text-gray-700 text-lg border-b border-gray-200 pb-2">
+                    <span class="lang-jp lang-content active">Notes / 注意事項</span>
+                    <span class="lang-en lang-content">Notes / 注意事項</span>
+                    <span class="lang-cn lang-content">Notes / 注意事项</span>
+                    <span class="lang-kr lang-content">Notes / 주의사항</span>
+                </h4>
+                
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <span class="mr-1">・</span>
+                        <span>
+                            <span class="lang-jp lang-content active">送迎料金に含まれるもの：税金、ガソリン代、高速道路料金、駐車料金</span>
+                            <span class="lang-en lang-content">Included in Transfer Price: Tax, Gasoline, Tolls, Parking Fees</span>
+                            <span class="lang-cn lang-content">费用包含: 税金, 汽油费, 高速费, 停车费</span>
+                            <span class="lang-kr lang-content">송영 요금 포함: 세금, 유류비, 고속도로 통행료, 주차비</span>
+                        </span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-1">・</span>
+                        <span>
+                            <span class="lang-jp lang-content active">送迎料金に含まれないもの：観光スポット入場料、食事代、ツアーガイド</span>
+                            <span class="lang-en lang-content">Excluded: Entrance fees, Meals, Tour Guide</span>
+                            <span class="lang-cn lang-content">费用不包含: 景点门票, 餐饮费, 导游费</span>
+                            <span class="lang-kr lang-content">송영 요금 불포함: 관광지 입장료, 식비, 투어 가이드</span>
+                        </span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-1">・</span>
+                        <span>
+                            <span class="lang-jp lang-content active">ツアーガイドは別途費用（33,000円～）でご案内可能です。</span>
+                            <span class="lang-en lang-content">Tour Guide: Available for an additional fee (from ¥33,000).</span>
+                            <span class="lang-cn lang-content">导游需额外付费 (33,000日元起)。</span>
+                            <span class="lang-kr lang-content">투어 가이드는 별도 비용(33,000엔~)으로 안내 가능합니다.</span>
+                        </span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-1">・</span>
+                        <span>
+                            <span class="lang-jp lang-content active">ツアー内容はカスタマイズ可能。</span>
+                            <span class="lang-en lang-content">Note: Tour contents are customizable.</span>
+                            <span class="lang-cn lang-content">游览内容可定制。</span>
+                            <span class="lang-kr lang-content">투어 내용은 맞춤 설정 가능합니다.</span>
+                        </span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-1">・</span>
+                        <span>
+                            <span class="lang-jp lang-content active">掲載のないコースは別途お見積り可能。</span>
+                            <span class="lang-en lang-content">Courses not listed can be quoted separately.</span>
+                            <span class="lang-cn lang-content">未列出的行程可另行报价。</span>
+                            <span class="lang-kr lang-content">게재되지 않은 코스는 별도 견적 가능합니다.</span>
+                        </span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-1">・</span>
+                        <span>
+                            <span class="lang-jp lang-content active">ツアー以外の料金は単純片道送迎料金（回送代含む）。</span>
+                            <span class="lang-en lang-content">Rates for non-tour services are one-way simple transfer (including empty return).</span>
+                            <span class="lang-cn lang-content">旅游以外的费用为单程接送费（含回程）。</span>
+                            <span class="lang-kr lang-content">투어 이외의 요금은 단순 편도 픽업 요금(회송비 포함)입니다.</span>
+                        </span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-1">・</span>
+                        <span>
+                            <span class="lang-jp lang-content active">支払い方法：当日ドライバー払い（現金／クレジットカード／PayPay）</span>
+                            <span class="lang-en lang-content">Payment: To Driver on the day (Cash / Credit Card / PayPay).</span>
+                            <span class="lang-cn lang-content">支付方式: 当天支付给司机 (现金/信用卡/PayPay)。</span>
+                            <span class="lang-kr lang-content">지불 방법: 당일 기사에게 지불 (현금/신용카드/PayPay).</span>
+                        </span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-1">・</span>
+                        <span>
+                            <span class="lang-jp lang-content active">経路途中立ち寄りや観光は別途1時間6,000円（別地点経由は別途見積）。</span>
+                            <span class="lang-en lang-content">Stopovers or sightseeing en route: Extra ¥6,000/hr.</span>
+                            <span class="lang-cn lang-content">途中停留或观光需额外每小时6,000日元。</span>
+                            <span class="lang-kr lang-content">경유지 들르기나 관광은 별도 1시간당 6,000엔.</span>
+                        </span>
+                    </li>
+                    <li class="flex items-start mt-2">
+                        <span class="mr-1 font-bold text-accent">※</span>
+                        <span class="font-bold text-accent">
+                            <span class="lang-jp lang-content active">金額はすべて日本円・税込みです。</span>
+                            <span class="lang-en lang-content">All prices are in JPY and include tax.</span>
+                            <span class="lang-cn lang-content">金额均为日元，含税。</span>
+                            <span class="lang-kr lang-content">금액은 모두 일본 엔화, 세금 포함입니다.</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-16 bg-primary text-white">
+        <div class="container mx-auto px-4 max-w-2xl text-center">
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">
+                <i class="fa-regular fa-envelope mr-2"></i>
+                <span class="lang-jp lang-content active">空き状況を問い合わせる</span>
+                <span class="lang-en lang-content">Booking / Inquiry</span>
+                <span class="lang-cn lang-content">预订 / 咨询</span>
+                <span class="lang-kr lang-content">예약 / 문의</span>
+            </h3>
+            <p class="mb-6 opacity-90">
+                <span class="lang-jp lang-content active">以下のフォーマットをコピーして、ホストへメッセージを送ってください。空き情報を確認いたします。</span>
+                <span class="lang-en lang-content">Please copy the format below and send a message to your host. We will check availability.</span>
+                <span class="lang-cn lang-content">请复制以下格式并发送消息给房东。我们将确认空房情况。</span>
+                <span class="lang-kr lang-content">아래 양식을 복사하여 호스트에게 메시지를 보내주세요. 예약 가능 여부를 확인해 드립니다.</span>
+            </p>
+
+            <div class="relative group">
+                <textarea id="bookingText" class="w-full h-64 p-4 rounded-lg text-gray-800 font-mono text-sm leading-relaxed focus:ring-2 focus:ring-accent outline-none" readonly></textarea>
+                
+                <button onclick="copyToClipboard()" class="mt-4 bg-accent hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform active:scale-95 flex items-center mx-auto">
+                    <i class="fa-regular fa-copy mr-2"></i>
+                    <span id="copyBtnText">Copy Text</span>
+                </button>
+                
+                <!-- Toast Notification (Hidden by default) -->
+                <div id="copyToast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none z-50">
+                    Copied to clipboard!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-sm">
+        <p>Copyright &copy; Ritz Co., Ltd. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data for Booking Form Templates
+        const formTemplates = {
+            jp: `希望の送迎サービス名：{serviceName}
+送迎出発日：
+送迎出発時間：
+送迎出発地：
+送迎到着地：
+便名（飛行機の場合）：
+代表者のお名前：
+乗客数：
+車の台数(9名につき1台)：
+荷物の個数：
+
+--------------------------------
+※12歳以上は大人1人、12歳未満は3人で大人2人分として計算`,
+            
+            en: `Service Name: {serviceName}
+Date: 
+Time: 
+Pick-up Location: 
+Drop-off Location: 
+Flight Number: 
+Name: 
+Passengers: 
+No. of Cars (1 car per 9 pax): 
+Luggage Count: 
+
+--------------------------------
+* 12yo+ = 1 adult, <12yo: 3 kids = 2 adults`,
+
+            cn: `希望的接送服务名称：{serviceName}
+出发日期：
+出发时间：
+出发地点：
+到达地点：
+航班号（如乘坐飞机）：
+代表者姓名：
+乘客人数：
+车辆数量（每9人一辆）：
+行李数量：
+
+--------------------------------
+※ 12岁以上算作成人1名，12岁以下3名算作成人2名`,
+
+            kr: `희망 픽업 서비스명: {serviceName}
+출발 날짜: 
+출발 시간: 
+출발 장소: 
+도착 장소: 
+편명 (항공편의 경우): 
+대표자 성명: 
+승객 수: 
+차량 대수 (9명당 1대): 
+짐 개수: 
+
+--------------------------------
+※ 12세 이상은 성인 1명, 12세 미만은 3명을 성인 2명분으로 계산`
+        };
+
+        // Service Names Translation Map
+        const serviceNamesMap = {
+            'narita_airport': { jp: '成田空港送迎', en: 'Narita Airport Transfer', cn: '成田机场接送', kr: '나리타 공항 픽업' },
+            'haneda_airport': { jp: '羽田空港送迎', en: 'Haneda Airport Transfer', cn: '羽田机场接送', kr: '하네다 공항 픽업' },
+            'plan_a': { jp: '朝着プランA (空港+観光)', en: 'Morning Plan A (Transfer + Tour)', cn: '早班到达套餐A (接机+观光)', kr: '아침 도착 플랜 A (픽업+관광)' },
+            'plan_b': { jp: '朝着プランB (荷物だけ宿へ)', en: 'Morning Plan B (Luggage Drop)', cn: '早班到达套餐B (行李直达)', kr: '아침 도착 플랜 B (짐만 숙소로)' },
+            'disney': { jp: '東京ディズニーリゾート送迎', en: 'Tokyo Disney Resort Transfer', cn: '东京迪士尼度假区接送', kr: '도쿄 디즈니 리조트 픽업' },
+            'teamlab': { jp: 'チームラボプラネッツ送迎', en: 'teamLab Planets Transfer', cn: 'teamLab Planets 接送', kr: '팀랩 플래닛 픽업' },
+            'harry_potter': { jp: 'ハリーポッター送迎', en: 'Harry Potter Studio Tour Transfer', cn: '哈利波特影城接送', kr: '해리 포터 스튜디오 투어 픽업' },
+            'sanrio': { jp: 'サンリオピューロランド送迎', en: 'Sanrio Puroland Transfer', cn: '三丽鸥彩虹乐园接送', kr: '산리오 퓨로랜드 픽업' },
+            'tour_fuji': { jp: '富士山1日ツアー', en: 'Mt. Fuji 1-Day Tour', cn: '富士山一日游', kr: '후지산 1일 투어' },
+            'tour_nikko': { jp: '日光1日ツアー', en: 'Nikko 1-Day Tour', cn: '日光一日游', kr: '닛코 1일 투어' },
+            'tour_kamakura': { jp: '鎌倉1日ツアー', en: 'Kamakura 1-Day Tour', cn: '镰仓一日游', kr: '가마쿠라 1일 투어' },
+            'others': { jp: 'その他・近距離送迎', en: 'Other / Short Distance Transfer', cn: '其他/短途接送', kr: '기타/단거리 픽업' }
+        };
+
+        let currentLang = 'jp'; // Default language
+
+        // Language Switching Logic
+        function setLanguage(lang) {
+            currentLang = lang;
+
+            // Update active content classes
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.classList.contains('lang-' + lang)) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+
+            // Update button styles
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('bg-primary', 'text-white');
+                    btn.classList.remove('text-primary');
+                } else {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('text-primary');
+                }
+            });
+
+            // Update TextArea Content based on current language and current service (if any selected, otherwise empty template)
+            // Just refresh the template with empty service name or keep existing logic?
+            // Simplest: just reset to template with empty string for service name to avoid confusion, 
+            // OR try to preserve the service name if possible. For now, let's just update the template structure.
+            // A better UX might be to just update the placeholder-like text.
+            updateBookingFormArea();
+        }
+
+        // Accordion Logic
+        function toggleAccordion(id) {
+            const element = document.getElementById(id);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+            } else {
+                element.classList.add('hidden');
+            }
+        }
+
+        // Fill Booking Form Logic
+        let selectedServiceKey = '';
+
+        function fillBookingForm(serviceKey) {
+            selectedServiceKey = serviceKey;
+            updateBookingFormArea();
+            
+            // Scroll to booking section
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateBookingFormArea() {
+            const textArea = document.getElementById('bookingText');
+            let template = formTemplates[currentLang];
+            
+            let serviceName = '';
+            if (selectedServiceKey && serviceNamesMap[selectedServiceKey]) {
+                serviceName = serviceNamesMap[selectedServiceKey][currentLang];
+            }
+
+            textArea.value = template.replace('{serviceName}', serviceName);
+        }
+
+        // Initialize default form text
+        updateBookingFormArea();
+
+        // Copy to Clipboard Logic
+        async function copyToClipboard() {
+            const copyText = document.getElementById("bookingText");
+            const btnText = document.getElementById("copyBtnText");
+            const toast = document.getElementById("copyToast");
+
+            // Select text
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            try {
+                // Modern API
+                await navigator.clipboard.writeText(copyText.value);
+                showToast();
+            } catch (err) {
+                // Fallback
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (err) {
+                    btnText.innerText = "Failed to Copy";
+                    setTimeout(() => btnText.innerText = "Copy Text", 2000);
+                }
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById("copyToast");
+            toast.classList.remove("opacity-0");
+            setTimeout(() => {
+                toast.classList.add("opacity-0");
+            }, 2000);
+        }
+
+        // Initialize default language explicitly if needed (CSS defaults to JP active)
+        // setLanguage('jp'); 
+    </script>
+</body>
+</html>
