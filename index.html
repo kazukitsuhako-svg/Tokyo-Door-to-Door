@@ -438,9 +438,9 @@
                     </div>
                     <button onclick="fillBookingForm('plan_a')" class="w-full py-2 border-2 border-primary text-primary font-bold rounded hover:bg-primary hover:text-white transition bg-white">
                         <span class="lang-jp lang-content">このプランを問い合わせる</span>
-                        <span class="lang-en lang-content active">Inquire Now</span>
-                        <span class="lang-cn lang-content">立即咨询</span>
-                        <span class="lang-kr lang-content">지금 문의하기</span>
+                        <span class="lang-en lang-content active">Inquire This Plan</span>
+                        <span class="lang-cn lang-content">查询此方案</span>
+                        <span class="lang-kr lang-content">이 플랜 문의하기</span>
                     </button>
                 </div>
 
@@ -1016,57 +1016,65 @@
     <script>
         // Data for Booking Form Templates
         const formTemplates = {
-            jp: `希望の送迎サービス名：{serviceName}
-送迎出発日：
-送迎出発時間：
+            jp: `下記の内容で送迎の手配は可能ですか？
+
+希望の送迎サービス名：{serviceName}
+送迎出発日：○月○日
+送迎出発時間：00:00
 送迎出発地：
 送迎到着地：
-※宿からの出発または到着の場合は宿名＋住所を記載してください。
+※宿からの出発または宿への到着の場合は宿名＋住所を記載してください。
 便名（飛行機の場合）：航空会社＋フライト番号
 代表者のお名前：
-連絡先電話番号：
-乗客数：
-車の台数(9名につき1台)：
-荷物の個数：`,
+代表者の携帯番号：
+乗客数：12歳以上の方（○）名、12歳未満の子供（○）名、乳幼児（○）名
+車の台数(9名につき1台)：○台
+荷物の個数：○個`,
             
-            en: `Service Name: {serviceName}
-Date: 
-Time: 
+            en: `Is it possible to arrange a transfer with the following details?
+
+Service Name: {serviceName}
+Date: MM/DD
+Time: 00:00
 Pick-up Location: 
 Drop-off Location: 
 *If Pick-up/Drop-off is a hotel, please provide Name + Address.
 Flight Number (Airline + Flight No): 
-Name: 
-Phone Number: 
-Passengers: 
-No. of Cars (1 car per 9 pax): 
-Luggage Count:`,
+Representative Name: 
+Mobile Number: 
+Passengers: Adults (12+) ( ) pax, Children (<12) ( ) pax, Infants ( ) pax
+No. of Cars (1 car per 9 pax): ( ) car(s)
+Luggage Count: ( ) pcs`,
 
-            cn: `希望的接送服务名称：{serviceName}
-出发日期：
-出发时间：
+            cn: `请问可以安排以下内容的接送吗？
+
+希望的接送服务名称：{serviceName}
+出发日期：○月○日
+出发时间：00:00
 出发地点：
 到达地点：
 ※如果是酒店接送，请填写酒店名称+地址。
 航班号（航空公司+航班号）：
 代表者姓名：
-联系电话：
-乘客人数：
-车辆数量（每9人一辆）：
-行李数量：`,
+手机号码：
+乘客人数：12岁以上（○）名，12岁以下儿童（○）名，婴幼儿（○）名
+车辆数量（每9人一辆）：○辆
+行李数量：○件`,
 
-            kr: `희망 픽업 서비스명: {serviceName}
-출발 날짜: 
-출발 시간: 
+            kr: `아래 내용으로 픽업 수배가 가능합니까?
+
+희망 픽업 서비스명: {serviceName}
+출발 날짜: ○월 ○일
+출발 시간: 00:00
 출발 장소: 
 도착 장소: 
 ※숙소 출발 또는 도착의 경우 숙소명+주소를 기재해 주십시오.
 편명 (항공사 + 항공편명): 
 대표자 성명: 
-연락처 전화번호: 
-승객 수: 
-차량 대수 (9명당 1대): 
-짐 개수:`
+휴대전화 번호: 
+승객 수: 12세 이상 (○)명, 12세 미만 아동 (○)명, 영유아 (○)명
+차량 대수 (9명당 1대): ○대
+짐 개수: ○개`
         };
 
         // Service Names Translation Map
