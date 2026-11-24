@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokyo Door-to-Door Concierge</title>
+    <title>Tokyo Door-to-Door Concierge | Private Airport Transfers &amp; Day Tours in Tokyo</title>
+    <meta name="description" content="Private door-to-door transfers in Tokyo: Narita / Haneda airport ⇔ your accommodation, theme parks (Disney, teamLab, Harry Potter, Sanrio) and day tours to Mt. Fuji, Hakone, Nikko and Kamakura. Up to 9 passengers. Fixed prices, tolls included.">
+    <link rel="canonical" href="https://tokyo-door-to-door.netlify.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tokyo-door-to-door.netlify.app/">
+    <meta property="og:title" content="Tokyo Door-to-Door Concierge">
+    <meta property="og:description" content="Private airport transfers & day tours in Tokyo. Narita / Haneda ⇔ your accommodation, theme parks, Mt. Fuji, Hakone, Nikko, Kamakura. Up to 9 passengers.">
+    <meta property="og:image" content="https://i.imgur.com/Ft6U89s.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#1e3a8a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚐</text></svg>">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
@@ -30,6 +40,19 @@
     <style>
         /* Smooth Scrolling */
         html { scroll-behavior: smooth; }
+        /* Keep section titles visible below the fixed header when jumping via links */
+        section[id] { scroll-margin-top: 92px; }
+        @media (min-width: 768px) { section[id] { scroll-margin-top: 64px; } }
+
+        /* Booking form fields */
+        .bk-label { display: block; font-size: 0.8rem; font-weight: 700; color: #374151; margin-bottom: 0.25rem; }
+        .bk-input { width: 100%; border: 1px solid #d1d5db; border-radius: 0.5rem; padding: 0.55rem 0.75rem; font-size: 16px; color: #1f2937; background: #fff; }
+        .bk-input:focus { outline: none; border-color: #d97706; box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.25); }
+        .bk-hint { font-size: 0.72rem; color: #6b7280; margin-top: 0.2rem; }
+
+        /* Accordion chevron */
+        .acc-open .fa-chevron-down { transform: rotate(180deg); }
+        .fa-chevron-down { transition: transform 0.2s; }
         
         /* Hero Background (PC Only) */
         .hero-bg-pc {
@@ -116,6 +139,13 @@
                             <span class="lang-tw lang-content">其他</span>
                             <span class="lang-kr lang-content">기타</span>
                         </a>
+                        <a href="#booking" class="text-accent hover:text-amber-700 transition">
+                            <span class="lang-jp lang-content">問い合わせ</span>
+                            <span class="lang-en lang-content active">Inquiry</span>
+                            <span class="lang-cn lang-content">咨询</span>
+                            <span class="lang-tw lang-content">諮詢</span>
+                            <span class="lang-kr lang-content">문의</span>
+                        </a>
                     </nav>
 
                     <!-- Language Switcher -->
@@ -159,19 +189,26 @@
                     <span class="lang-tw lang-content">觀光行程</span>
                     <span class="lang-kr lang-content">관광 투어</span>
                 </a>
-                <a href="#others" class="inline-block px-3 py-1 text-xs font-bold text-primary bg-white rounded-full border border-blue-100 shadow-sm">
+                <a href="#others" class="inline-block px-3 py-1 mr-1 text-xs font-bold text-primary bg-white rounded-full border border-blue-100 shadow-sm">
                     <span class="lang-jp lang-content">その他</span>
                     <span class="lang-en lang-content active">Others</span>
                     <span class="lang-cn lang-content">其他</span>
                     <span class="lang-tw lang-content">其他</span>
                     <span class="lang-kr lang-content">기타</span>
                 </a>
+                <a href="#booking" class="inline-block px-3 py-1 text-xs font-bold text-white bg-accent rounded-full border border-accent shadow-sm">
+                    <span class="lang-jp lang-content">問い合わせ</span>
+                    <span class="lang-en lang-content active">Inquiry</span>
+                    <span class="lang-cn lang-content">咨询</span>
+                    <span class="lang-tw lang-content">諮詢</span>
+                    <span class="lang-kr lang-content">문의</span>
+                </a>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative md:h-screen min-h-[500px] flex flex-col md:flex-row items-center justify-center pt-12 md:pt-16 bg-primary md:bg-transparent">
+    <section id="hero" class="relative md:h-screen min-h-[500px] flex flex-col md:flex-row items-center justify-center pt-12 md:pt-16 bg-primary md:bg-transparent">
         <!-- PC Background (Absolute) -->
         <div class="absolute inset-0 z-0 hero-bg-pc hidden md:block"></div>
         
@@ -196,6 +233,50 @@
                 <span class="lang-tw lang-content">從機場到民宿，從民宿到景點。<br>私人接送讓您擺脫沉重的行李和轉乘的煩惱。</span>
                 <span class="lang-kr lang-content">공항에서 숙소로, 숙소에서 관광지로.<br>무거운 짐과 번거로운 환승에서 해방되는 완전 프라이빗 픽업.</span>
             </p>
+            <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="#airport" class="inline-flex items-center justify-center bg-white text-primary font-bold py-3 px-7 rounded-full shadow-lg hover:bg-blue-50 transition">
+                    <i class="fa-solid fa-tags mr-2"></i>
+                    <span class="lang-jp lang-content">料金とプランを見る</span>
+                    <span class="lang-en lang-content active">See Plans &amp; Prices</span>
+                    <span class="lang-cn lang-content">查看方案与价格</span>
+                    <span class="lang-tw lang-content">查看方案與價格</span>
+                    <span class="lang-kr lang-content">플랜·요금 보기</span>
+                </a>
+                <a href="#booking" class="inline-flex items-center justify-center bg-accent text-white font-bold py-3 px-7 rounded-full shadow-lg hover:bg-amber-700 transition">
+                    <i class="fa-regular fa-envelope mr-2"></i>
+                    <span class="lang-jp lang-content">空き状況を問い合わせる</span>
+                    <span class="lang-en lang-content active">Check Availability</span>
+                    <span class="lang-cn lang-content">查询是否可预约</span>
+                    <span class="lang-tw lang-content">查詢是否可預約</span>
+                    <span class="lang-kr lang-content">예약 가능 여부 문의</span>
+                </a>
+            </div>
+            <div class="mt-5 flex flex-wrap justify-center gap-2 text-sm">
+                <div class="flex items-center gap-1.5 bg-white/15 rounded-full px-3 py-1">
+                    <i class="fa-solid fa-road text-xs"></i>
+                    <span class="lang-jp lang-content">高速代込み</span>
+                    <span class="lang-en lang-content active">Tolls included</span>
+                    <span class="lang-cn lang-content">含高速费</span>
+                    <span class="lang-tw lang-content">含高速費</span>
+                    <span class="lang-kr lang-content">고속도로 요금 포함</span>
+                </div>
+                <div class="flex items-center gap-1.5 bg-white/15 rounded-full px-3 py-1">
+                    <i class="fa-solid fa-users text-xs"></i>
+                    <span class="lang-jp lang-content">最大9名</span>
+                    <span class="lang-en lang-content active">Up to 9 passengers</span>
+                    <span class="lang-cn lang-content">最多9人</span>
+                    <span class="lang-tw lang-content">最多9人</span>
+                    <span class="lang-kr lang-content">최대 9명</span>
+                </div>
+                <div class="flex items-center gap-1.5 bg-white/15 rounded-full px-3 py-1">
+                    <i class="fa-solid fa-wallet text-xs"></i>
+                    <span class="lang-jp lang-content">お支払いは当日ドライバーへ</span>
+                    <span class="lang-en lang-content active">Pay the driver on the day</span>
+                    <span class="lang-cn lang-content">当天向司机付款</span>
+                    <span class="lang-tw lang-content">當天向司機付款</span>
+                    <span class="lang-kr lang-content">당일 기사님께 결제</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -713,8 +794,8 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="font-bold text-accent">¥80,000</span>
-                            <button class="text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
-                                <i class="fa-solid fa-chevron-down mr-1"></i> Details
+                            <button class="inline-flex items-center text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
+                                <i class="fa-solid fa-chevron-down mr-1"></i> <span class="lang-jp lang-content">詳細</span><span class="lang-en lang-content active">Details</span><span class="lang-cn lang-content">详情</span><span class="lang-tw lang-content">詳情</span><span class="lang-kr lang-content">상세</span>
                             </button>
                         </div>
                     </div>
@@ -763,8 +844,8 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="font-bold text-accent">¥80,000</span>
-                            <button class="text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
-                                <i class="fa-solid fa-chevron-down mr-1"></i> Details
+                            <button class="inline-flex items-center text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
+                                <i class="fa-solid fa-chevron-down mr-1"></i> <span class="lang-jp lang-content">詳細</span><span class="lang-en lang-content active">Details</span><span class="lang-cn lang-content">详情</span><span class="lang-tw lang-content">詳情</span><span class="lang-kr lang-content">상세</span>
                             </button>
                         </div>
                     </div>
@@ -830,8 +911,8 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="font-bold text-accent">¥90,000</span>
-                            <button class="text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
-                                <i class="fa-solid fa-chevron-down mr-1"></i> Details
+                            <button class="inline-flex items-center text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
+                                <i class="fa-solid fa-chevron-down mr-1"></i> <span class="lang-jp lang-content">詳細</span><span class="lang-en lang-content active">Details</span><span class="lang-cn lang-content">详情</span><span class="lang-tw lang-content">詳情</span><span class="lang-kr lang-content">상세</span>
                             </button>
                         </div>
                     </div>
@@ -873,8 +954,8 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="font-bold text-accent">¥80,000</span>
-                            <button class="text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
-                                <i class="fa-solid fa-chevron-down mr-1"></i> Details
+                            <button class="inline-flex items-center text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded hover:bg-accent hover:text-white transition">
+                                <i class="fa-solid fa-chevron-down mr-1"></i> <span class="lang-jp lang-content">詳細</span><span class="lang-en lang-content active">Details</span><span class="lang-cn lang-content">详情</span><span class="lang-tw lang-content">詳情</span><span class="lang-kr lang-content">상세</span>
                             </button>
                         </div>
                     </div>
@@ -941,13 +1022,6 @@
                         </div>
                     </div>
                 </div>
-                 <button onclick="fillBookingForm('others')" class="w-full py-2 border-2 border-gray-300 text-gray-600 font-bold rounded hover:bg-gray-600 hover:text-white transition">
-                    <span class="lang-jp lang-content">その他エリアについて問い合わせる</span>
-                    <span class="lang-en lang-content active">Inquire About Other Areas</span>
-                    <span class="lang-cn lang-content">查询其他地区</span>
-                    <span class="lang-tw lang-content">查詢其他地區</span>
-                    <span class="lang-kr lang-content">기타 지역 문의</span>
-                </button>
             </div>
 
             <!-- Important Notes (Consolidated & Aligned) -->
@@ -1080,17 +1154,17 @@
     </section>
 
     <!-- Booking Section -->
-    <section id="booking" class="py-16 bg-primary text-white">
-        <div class="container mx-auto px-4 max-w-2xl text-center">
-            <h3 class="text-2xl md:text-3xl font-bold mb-4">
-                <i class="fa-regular fa-envelope mr-2"></i>
+    <section id="booking" class="py-14 md:py-16 bg-primary text-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h3 class="text-2xl md:text-3xl font-bold mb-3 text-center flex items-center justify-center gap-2">
+                <i class="fa-regular fa-envelope"></i>
                 <span class="lang-jp lang-content">空き状況を問い合わせる</span>
                 <span class="lang-en lang-content active">Booking / Inquiry</span>
                 <span class="lang-cn lang-content">预订 / 咨询</span>
                 <span class="lang-tw lang-content">預訂 / 諮詢</span>
                 <span class="lang-kr lang-content">예약 / 문의</span>
             </h3>
-            <p class="mb-6 opacity-90">
+            <p class="mb-8 opacity-90 text-center">
                 <span class="lang-jp lang-content">空き情報を確認いたしますので、以下のフォーマットをコピーして、予約したサイトからホストへメッセージを送ってください</span>
                 <span class="lang-en lang-content active">We will check availability. Please copy the format below and send a message to the host from the booking site.</span>
                 <span class="lang-cn lang-content">我们将确认空房情况，请复制以下格式并从预订网站发送消息给房东。</span>
@@ -1098,21 +1172,145 @@
                 <span class="lang-kr lang-content">예약 가능 여부를 확인해 드리므로, 아래 형식을 복사하여 예약 사이트에서 호스트에게 메시지를 보내주십시오.</span>
             </p>
 
-            <div class="relative group">
+            <!-- How to book: 4 steps -->
+            <ol class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 text-sm">
+                <li class="bg-white/10 rounded-lg p-3 text-center">
+                    <div class="w-8 h-8 mx-auto mb-2 rounded-full bg-accent text-white font-bold flex items-center justify-center">1</div>
+                    <span class="lang-jp lang-content">プランを選ぶ</span>
+                    <span class="lang-en lang-content active">Choose a plan</span>
+                    <span class="lang-cn lang-content">选择方案</span>
+                    <span class="lang-tw lang-content">選擇方案</span>
+                    <span class="lang-kr lang-content">플랜 선택</span>
+                </li>
+                <li class="bg-white/10 rounded-lg p-3 text-center">
+                    <div class="w-8 h-8 mx-auto mb-2 rounded-full bg-accent text-white font-bold flex items-center justify-center">2</div>
+                    <span class="lang-jp lang-content">下の欄に入力</span>
+                    <span class="lang-en lang-content active">Fill in the form below</span>
+                    <span class="lang-cn lang-content">填写下方表格</span>
+                    <span class="lang-tw lang-content">填寫下方表格</span>
+                    <span class="lang-kr lang-content">아래 양식 입력</span>
+                </li>
+                <li class="bg-white/10 rounded-lg p-3 text-center">
+                    <div class="w-8 h-8 mx-auto mb-2 rounded-full bg-accent text-white font-bold flex items-center justify-center">3</div>
+                    <span class="lang-jp lang-content">文をコピーし、予約したサイトのメッセージでホストへ送る</span>
+                    <span class="lang-en lang-content active">Copy the text and send it to the host via your booking site's messages</span>
+                    <span class="lang-cn lang-content">复制文字，通过预订网站的消息发送给房东</span>
+                    <span class="lang-tw lang-content">複製文字，透過預訂網站的訊息傳送給房東</span>
+                    <span class="lang-kr lang-content">문장을 복사해 예약 사이트 메시지로 호스트에게 전송</span>
+                </li>
+                <li class="bg-white/10 rounded-lg p-3 text-center">
+                    <div class="w-8 h-8 mx-auto mb-2 rounded-full bg-accent text-white font-bold flex items-center justify-center">4</div>
+                    <span class="lang-jp lang-content">ホストが空き状況を返信</span>
+                    <span class="lang-en lang-content active">The host replies with availability</span>
+                    <span class="lang-cn lang-content">房东回复是否可预约</span>
+                    <span class="lang-tw lang-content">房東回覆是否可預約</span>
+                    <span class="lang-kr lang-content">호스트가 예약 가능 여부를 회신</span>
+                </li>
+            </ol>
+
+            <!-- Deadline -->
+            <div class="mb-6 bg-amber-50 text-amber-900 rounded-lg px-4 py-3 text-sm font-bold flex items-start gap-2">
+                <i class="fa-regular fa-clock mt-0.5"></i>
+                <span class="lang-jp lang-content">ご予約はご利用日の前日12:00（日本時間）までにお願いします。当日のご依頼はお受けできません。</span>
+                <span class="lang-en lang-content active">Please book by 12:00 noon (Japan time) the day before your ride. Same-day requests cannot be accepted.</span>
+                <span class="lang-cn lang-content">请于乘车前一天12:00（日本时间）前预约。恕不接受当天的预约。</span>
+                <span class="lang-tw lang-content">請於乘車前一天12:00（日本時間）前預約。恕不接受當天的預約。</span>
+                <span class="lang-kr lang-content">이용일 전날 12:00(일본 시간)까지 예약해 주세요. 당일 요청은 받을 수 없습니다.</span>
+            </div>
+
+            <!-- Input form: builds the inquiry text below -->
+            <form id="bookingForm" class="bg-white text-gray-800 rounded-xl shadow-lg p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4" onsubmit="return false;" oninput="updateBookingFormArea()" onchange="updateBookingFormArea()">
+                <div class="md:col-span-2">
+                    <label class="bk-label" for="f_service" data-i18n="service"></label>
+                    <select id="f_service" class="bk-input"></select>
+                </div>
+                <div>
+                    <label class="bk-label" for="f_date" data-i18n="date"></label>
+                    <input id="f_date" type="date" class="bk-input">
+                </div>
+                <div>
+                    <label class="bk-label" for="f_time" data-i18n="time"></label>
+                    <input id="f_time" type="time" class="bk-input">
+                </div>
+                <div id="deadlineWarn" class="md:col-span-2 hidden bg-red-50 text-red-700 border border-red-200 rounded-lg px-3 py-2 text-sm font-bold" data-i18n="deadlineWarn"></div>
+                <div>
+                    <label class="bk-label" for="f_from" data-i18n="from"></label>
+                    <input id="f_from" type="text" class="bk-input" autocomplete="off">
+                </div>
+                <div>
+                    <label class="bk-label" for="f_to" data-i18n="to"></label>
+                    <input id="f_to" type="text" class="bk-input" autocomplete="off">
+                </div>
+                <p class="md:col-span-2 bk-hint -mt-2" data-i18n="addrHint"></p>
+                <div class="md:col-span-2">
+                    <label class="bk-label" for="f_flight" data-i18n="flight"></label>
+                    <input id="f_flight" type="text" class="bk-input" autocomplete="off" data-i18n-ph="flightPh">
+                </div>
+                <div>
+                    <label class="bk-label" for="f_name" data-i18n="name"></label>
+                    <input id="f_name" type="text" class="bk-input" autocomplete="name">
+                </div>
+                <div>
+                    <label class="bk-label" for="f_phone" data-i18n="phone"></label>
+                    <input id="f_phone" type="tel" class="bk-input" autocomplete="tel" placeholder="+81 90-1234-5678">
+                </div>
+                <div class="md:col-span-2">
+                    <span class="bk-label" data-i18n="passengers"></span>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <input id="f_adults" type="number" min="0" max="99" inputmode="numeric" class="bk-input">
+                            <label class="bk-hint block" for="f_adults" data-i18n="adults"></label>
+                        </div>
+                        <div>
+                            <input id="f_children" type="number" min="0" max="99" inputmode="numeric" class="bk-input">
+                            <label class="bk-hint block" for="f_children" data-i18n="children"></label>
+                        </div>
+                        <div>
+                            <input id="f_infants" type="number" min="0" max="99" inputmode="numeric" class="bk-input">
+                            <label class="bk-hint block" for="f_infants" data-i18n="infants"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-2 grid grid-cols-3 gap-2">
+                    <div class="flex flex-col">
+                        <label class="bk-label flex-1" for="f_seats" data-i18n="seats"></label>
+                        <input id="f_seats" type="number" min="0" max="9" inputmode="numeric" class="bk-input">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="bk-label flex-1" for="f_cars" data-i18n="cars"></label>
+                        <input id="f_cars" type="number" min="1" max="9" inputmode="numeric" class="bk-input">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="bk-label flex-1" for="f_bags" data-i18n="bags"></label>
+                        <input id="f_bags" type="number" min="0" max="99" inputmode="numeric" class="bk-input">
+                    </div>
+                </div>
+            </form>
+
+            <!-- Generated text -->
+            <div class="mt-8 text-center">
+                <p class="text-sm font-bold mb-2 opacity-90" data-i18n="previewTitle"></p>
                 <textarea id="bookingText" class="w-full h-80 p-4 rounded-lg text-gray-800 font-mono text-sm leading-relaxed focus:ring-2 focus:ring-accent outline-none" readonly></textarea>
-                
+
                 <button onclick="copyToClipboard()" class="mt-4 bg-accent hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform active:scale-95 flex items-center mx-auto">
                     <i class="fa-regular fa-copy mr-2"></i>
-                    <span id="copyBtnText">Copy Text</span>
+                    <span id="copyBtnText" data-i18n="copy">Copy Text</span>
                 </button>
-                
+                <p class="mt-3 text-sm opacity-90" data-i18n="afterCopy"></p>
+
                 <!-- Toast Notification -->
-                <div id="copyToast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none z-50 font-bold">
+                <div id="copyToast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none z-50 font-bold" data-i18n="copied">
                     Copy OK!
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Floating inquiry button (mobile) -->
+    <a id="floatingCta" href="#booking" class="md:hidden fixed bottom-4 right-4 z-40 bg-accent text-white font-bold text-sm py-3 px-5 rounded-full shadow-xl flex items-center gap-2 transition-opacity duration-300">
+        <i class="fa-regular fa-envelope"></i>
+        <span data-i18n="floating"></span>
+    </a>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-6 text-center text-sm">
@@ -1121,90 +1319,107 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // Data for Booking Form Templates
+        // Inquiry text templates. The line items must stay as they are:
+        // the host's AI reply drafts copy these fields. Empty fields keep the placeholder (○ etc.).
         const formTemplates = {
             jp: `下記の内容で送迎の手配は可能ですか？
 
 希望の送迎サービス名：{serviceName}
-送迎出発日：○月○日
-送迎出発時間：00:00
-送迎出発地：
-送迎到着地：
+送迎出発日：{date}
+送迎出発時間：{time}
+送迎出発地：{from}
+送迎到着地：{to}
 ※宿からの出発または宿への到着の場合は宿名＋住所を記載してください。
-便名（飛行機の場合）：航空会社＋フライト番号
-代表者のお名前：
-代表者の携帯番号：
-乗客数：12歳以上の方（○）名、12歳未満の子供（○）名、乳幼児（○）名
-チャイルドシート（無料）：○台
-車の台数(9名につき1台)：○台
-荷物の個数：○個`,
-            
+便名（飛行機の場合）：{flight}
+代表者のお名前：{name}
+代表者の携帯番号：{phone}
+乗客数：12歳以上の方（{adults}）名、12歳未満の子供（{children}）名、乳幼児（{infants}）名
+チャイルドシート（無料）：{seats}台
+車の台数(9名につき1台)：{cars}台
+荷物の個数：{bags}個`,
+
             en: `Is it possible to arrange a transfer with the following details?
 
 Service Name: {serviceName}
-Date: MM/DD
-Time: 00:00
-Pick-up Location: 
-Drop-off Location: 
+Date: {date}
+Time: {time}
+Pick-up Location: {from}
+Drop-off Location: {to}
 *If Pick-up/Drop-off is an accommodation, please provide Name + Address.
-Flight Number (Airline + Flight No): 
-Representative Name: 
-Mobile Number: 
-Passengers: Adults (12+) ( ) pax, Children (<12) ( ) pax, Infants ( ) pax
-Child Safety Seat (Free): ( ) seat(s)
-No. of Cars (1 car per 9 pax): ( ) car(s)
-Luggage Count: ( ) pcs`,
+Flight Number (Airline + Flight No): {flight}
+Representative Name: {name}
+Mobile Number: {phone}
+Passengers: Adults (12+) ({adults}) pax, Children (<12) ({children}) pax, Infants ({infants}) pax
+Child Safety Seat (Free): ({seats}) seat(s)
+No. of Cars (1 car per 9 pax): ({cars}) car(s)
+Luggage Count: ({bags}) pcs`,
 
             cn: `请问可以安排以下内容的接送吗？
 
 希望的接送服务名称：{serviceName}
-出发日期：○月○日
-出发时间：00:00
-出发地点：
-到达地点：
+出发日期：{date}
+出发时间：{time}
+出发地点：{from}
+到达地点：{to}
 ※如果是民宿/酒店接送，请填写民宿/酒店名称+地址。
-航班号（航空公司+航班号）：
-代表者姓名：
-手机号码：
-乘客人数：12岁以上（○）名，12岁以下儿童（○）名，婴幼儿（○）名
-儿童安全座椅（免费）：○台
-车辆数量（每9人一辆）：○辆
-行李数量：○件`,
+航班号（航空公司+航班号）：{flight}
+代表者姓名：{name}
+手机号码：{phone}
+乘客人数：12岁以上（{adults}）名，12岁以下儿童（{children}）名，婴幼儿（{infants}）名
+儿童安全座椅（免费）：{seats}台
+车辆数量（每9人一辆）：{cars}辆
+行李数量：{bags}件`,
 
             tw: `請問可以安排以下內容的接送嗎？
 
 希望的接送服務名稱：{serviceName}
-出發日期：○月○日
-出發時間：00:00
-出發地點：
-到達地點：
+出發日期：{date}
+出發時間：{time}
+出發地點：{from}
+到達地點：{to}
 ※如果是民宿/酒店接送，請填寫民宿/酒店名稱+地址。
-航班號（航空公司+航班號）：
-代表者姓名：
-手機號碼：
-乘客人數：12歲以上（○）名，12歲以下兒童（○）名，嬰幼兒（○）名
-兒童安全座椅（免費）：○台
-車輛數量（每9人一輛）：○輛
-行李數量：○件`,
+航班號（航空公司+航班號）：{flight}
+代表者姓名：{name}
+手機號碼：{phone}
+乘客人數：12歲以上（{adults}）名，12歲以下兒童（{children}）名，嬰幼兒（{infants}）名
+兒童安全座椅（免費）：{seats}台
+車輛數量（每9人一輛）：{cars}輛
+行李數量：{bags}件`,
 
             kr: `아래 내용으로 픽업 수배가 가능합니까?
 
 희망 픽업 서비스명: {serviceName}
-출발 날짜: ○월 ○일
-출발 시간: 00:00
-출발 장소: 
-도착 장소: 
+출발 날짜: {date}
+출발 시간: {time}
+출발 장소: {from}
+도착 장소: {to}
 ※숙소(에어비앤비) 출발 또는 도착의 경우 숙소명+주소를 기재해 주십시오.
-편명 (항공사 + 항공편명): 
-대표자 성명: 
-휴대전화 번호: 
-승객 수: 12세 이상 (○)명, 12세 미만 아동 (○)명, 영유아 (○)명
-카시트 (무료): ○대
-차량 대수 (9명당 1대): ○대
-짐 개수: ○개`
+편명 (항공사 + 항공편명): {flight}
+대표자 성명: {name}
+휴대전화 번호: {phone}
+승객 수: 12세 이상 ({adults})명, 12세 미만 아동 ({children})명, 영유아 ({infants})명
+카시트 (무료): {seats}대
+차량 대수 (9명당 1대): {cars}대
+짐 개수: {bags}개`
         };
 
-        // Service Names Translation Map
+        // Placeholders used when a field is left empty (same as the original copy-paste format)
+        const emptyValues = {
+            jp: { date: '○月○日', time: '00:00', flight: '航空会社＋フライト番号', num: '○' },
+            en: { date: 'MM/DD',   time: '00:00', flight: '',                     num: ' ' },
+            cn: { date: '○月○日', time: '00:00', flight: '',                     num: '○' },
+            tw: { date: '○月○日', time: '00:00', flight: '',                     num: '○' },
+            kr: { date: '○월 ○일', time: '00:00', flight: '',                    num: '○' }
+        };
+
+        function formatDate(iso, lang) {
+            const [y, m, d] = iso.split('-').map(Number);
+            if (lang === 'en') return String(m).padStart(2, '0') + '/' + String(d).padStart(2, '0');
+            if (lang === 'kr') return m + '월 ' + d + '일';
+            return m + '月' + d + '日';
+        }
+
+        // Service Names Translation Map (also the order of the service list in the form)
         const serviceNamesMap = {
             'narita_airport': { jp: '成田空港送迎', en: 'Narita Airport Transfer', cn: '成田机场接送', tw: '成田機場接送', kr: '나리타 공항 송영 서비스' },
             'haneda_airport': { jp: '羽田空港送迎', en: 'Haneda Airport Transfer', cn: '羽田机场接送', tw: '羽田機場接送', kr: '하네다 공항 송영 서비스' },
@@ -1215,98 +1430,217 @@ Luggage Count: ( ) pcs`,
             'harry_potter': { jp: 'ハリーポッター送迎', en: 'Harry Potter Studio Tour Transfer', cn: '哈利波特影城接送', tw: '哈利波特影城接送', kr: '해리 포터 스튜디오 투어 픽업' },
             'sanrio': { jp: 'サンリオピューロランド送迎', en: 'Sanrio Puroland Transfer', cn: '三丽鸥彩虹乐园接送', tw: '三麗鷗彩虹樂園接送', kr: '산리오 퓨로랜드 픽업' },
             'tour_fuji': { jp: '富士山＆御殿場ツアー', en: 'Mt. Fuji & Gotemba Tour', cn: '富士山 & 御殿场之旅', tw: '富士山 & 御殿場之旅', kr: '후지산 & 고텐바 투어' },
+            'tour_fuji_hakone': { jp: '富士山＆箱根ツアー', en: 'Mt. Fuji & Hakone Tour', cn: '富士山 & 箱根之旅', tw: '富士山 & 箱根之旅', kr: '후지산 & 하코네 투어' },
             'tour_nikko': { jp: '日光1日ツアー', en: 'Nikko 1-Day Tour', cn: '日光一日游', tw: '日光一日遊', kr: '닛코 1일 투어' },
             'tour_kamakura': { jp: '鎌倉1日ツアー', en: 'Kamakura 1-Day Tour', cn: '镰仓一日游', tw: '鐮倉一日遊', kr: '가마쿠라 1일 투어' },
-            'tour_fuji_hakone': { jp: '富士山＆箱根ツアー', en: 'Mt. Fuji & Hakone Tour', cn: '富士山 & 箱根之旅', tw: '富士山 & 箱根之旅', kr: '후지산 & 하코네 투어' },
             'others': { jp: 'その他・近距離送迎', en: 'Other / Short Distance Transfer', cn: '其他/短途接送', tw: '其他/短程接送', kr: '기타/단거리 픽업' }
         };
 
-        let currentLang = 'en'; // Default language set to English
+        // UI labels for the booking form and buttons
+        const uiText = {
+            jp: {
+                service: '希望の送迎サービス', choose: '選択してください', date: '送迎出発日', time: '送迎出発時間',
+                from: '送迎出発地', to: '送迎到着地', addrHint: '※宿からの出発または宿への到着の場合は宿名＋住所を記載してください。',
+                flight: '便名（飛行機の場合）', flightPh: '例：JL123', name: '代表者のお名前', phone: '代表者の携帯番号',
+                passengers: '乗客数', adults: '12歳以上', children: '12歳未満の子供', infants: '乳幼児',
+                seats: 'チャイルドシート（無料）', cars: '車の台数（9名につき1台）', bags: '荷物の個数',
+                previewTitle: '送る文（入力すると自動で書き換わります）', copy: '文をコピー', copied: 'コピーしました！', copyFail: 'コピーできませんでした',
+                afterCopy: 'コピーした文を、予約したサイトのメッセージでホストへ送ってください。',
+                deadlineWarn: 'この日付は締切（前日12:00・日本時間）を過ぎています。当日・締切後のご依頼はお受けできません。',
+                floating: '問い合わせ'
+            },
+            en: {
+                service: 'Service', choose: 'Please select', date: 'Date', time: 'Time',
+                from: 'Pick-up Location', to: 'Drop-off Location', addrHint: '*If Pick-up/Drop-off is an accommodation, please provide Name + Address.',
+                flight: 'Flight Number (Airline + Flight No)', flightPh: 'e.g. JL123', name: 'Representative Name', phone: 'Mobile Number',
+                passengers: 'Passengers', adults: 'Adults (12+)', children: 'Children (<12)', infants: 'Infants',
+                seats: 'Child Seat (Free)', cars: 'Cars (1 per 9 pax)', bags: 'Luggage',
+                previewTitle: 'Your message (updates as you type)', copy: 'Copy Text', copied: 'Copied!', copyFail: 'Copy failed',
+                afterCopy: 'Send the copied text to the host via the messages on your booking site.',
+                deadlineWarn: 'This date is past the booking deadline (12:00 noon Japan time the day before). Same-day or late requests cannot be accepted.',
+                floating: 'Inquiry'
+            },
+            cn: {
+                service: '希望的接送服务', choose: '请选择', date: '出发日期', time: '出发时间',
+                from: '出发地点', to: '到达地点', addrHint: '※如果是民宿/酒店接送，请填写民宿/酒店名称+地址。',
+                flight: '航班号（航空公司+航班号）', flightPh: '例：JL123', name: '代表者姓名', phone: '手机号码',
+                passengers: '乘客人数', adults: '12岁以上', children: '12岁以下儿童', infants: '婴幼儿',
+                seats: '儿童安全座椅（免费）', cars: '车辆数量（每9人一辆）', bags: '行李数量',
+                previewTitle: '要发送的文字（输入后自动更新）', copy: '复制文字', copied: '已复制！', copyFail: '复制失败',
+                afterCopy: '请将复制的文字通过预订网站的消息发送给房东。',
+                deadlineWarn: '该日期已超过预约截止时间（前一天12:00・日本时间）。恕不接受当天或截止后的预约。',
+                floating: '咨询'
+            },
+            tw: {
+                service: '希望的接送服務', choose: '請選擇', date: '出發日期', time: '出發時間',
+                from: '出發地點', to: '到達地點', addrHint: '※如果是民宿/酒店接送，請填寫民宿/酒店名稱+地址。',
+                flight: '航班號（航空公司+航班號）', flightPh: '例：JL123', name: '代表者姓名', phone: '手機號碼',
+                passengers: '乘客人數', adults: '12歲以上', children: '12歲以下兒童', infants: '嬰幼兒',
+                seats: '兒童安全座椅（免費）', cars: '車輛數量（每9人一輛）', bags: '行李數量',
+                previewTitle: '要傳送的文字（輸入後自動更新）', copy: '複製文字', copied: '已複製！', copyFail: '複製失敗',
+                afterCopy: '請將複製的文字透過預訂網站的訊息傳送給房東。',
+                deadlineWarn: '此日期已超過預約截止時間（前一天12:00・日本時間）。恕不接受當天或截止後的預約。',
+                floating: '諮詢'
+            },
+            kr: {
+                service: '희망 픽업 서비스', choose: '선택해 주세요', date: '출발 날짜', time: '출발 시간',
+                from: '출발 장소', to: '도착 장소', addrHint: '※숙소(에어비앤비) 출발 또는 도착의 경우 숙소명+주소를 기재해 주십시오.',
+                flight: '편명 (항공사 + 항공편명)', flightPh: '예: JL123', name: '대표자 성명', phone: '휴대전화 번호',
+                passengers: '승객 수', adults: '12세 이상', children: '12세 미만 아동', infants: '영유아',
+                seats: '카시트 (무료)', cars: '차량 대수 (9명당 1대)', bags: '짐 개수',
+                previewTitle: '보낼 문장 (입력하면 자동으로 바뀝니다)', copy: '문장 복사', copied: '복사했습니다!', copyFail: '복사하지 못했습니다',
+                afterCopy: '복사한 문장을 예약 사이트 메시지로 호스트에게 보내 주세요.',
+                deadlineWarn: '이 날짜는 예약 마감(전날 12:00・일본 시간)이 지났습니다. 당일 또는 마감 후 요청은 받을 수 없습니다.',
+                floating: '문의'
+            }
+        };
+
+        const htmlLangCodes = { jp: 'ja', en: 'en', cn: 'zh-CN', tw: 'zh-TW', kr: 'ko' };
+        let currentLang = 'en';
 
         // Language Switching Logic
         function setLanguage(lang) {
+            if (!formTemplates[lang]) lang = 'en';
             currentLang = lang;
+            document.documentElement.lang = htmlLangCodes[lang];
+            try { localStorage.setItem('tdd_lang', lang); } catch (e) {}
 
             // Update active content classes
             document.querySelectorAll('.lang-content').forEach(el => {
-                if (el.classList.contains('lang-' + lang)) {
-                    el.classList.add('active');
-                } else {
-                    el.classList.remove('active');
-                }
+                el.classList.toggle('active', el.classList.contains('lang-' + lang));
             });
 
             // Update button styles
             document.querySelectorAll('.lang-btn').forEach(btn => {
-                if (btn.dataset.lang === lang) {
-                    btn.classList.add('bg-primary', 'text-white');
-                    btn.classList.remove('text-primary');
-                } else {
-                    btn.classList.remove('bg-primary', 'text-white');
-                    btn.classList.add('text-primary');
-                }
+                const on = btn.dataset.lang === lang;
+                btn.classList.toggle('bg-primary', on);
+                btn.classList.toggle('text-white', on);
+                btn.classList.toggle('text-primary', !on);
             });
 
+            // Form labels
+            const t = uiText[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t[el.dataset.i18n]; });
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t[el.dataset.i18nPh]; });
+            buildServiceOptions();
+
             updateBookingFormArea();
+        }
+
+        // Pick the first language: ?lang=xx > last choice > browser language > English
+        function detectLanguage() {
+            const param = new URLSearchParams(location.search).get('lang');
+            if (param && formTemplates[param]) return param;
+            try {
+                const saved = localStorage.getItem('tdd_lang');
+                if (saved && formTemplates[saved]) return saved;
+            } catch (e) {}
+            for (const l of (navigator.languages || [navigator.language || 'en'])) {
+                const s = l.toLowerCase();
+                if (s.startsWith('ja')) return 'jp';
+                if (s.startsWith('ko')) return 'kr';
+                if (s.startsWith('zh')) return (s.includes('tw') || s.includes('hk') || s.includes('mo') || s.includes('hant')) ? 'tw' : 'cn';
+                if (s.startsWith('en')) return 'en';
+            }
+            return 'en';
         }
 
         // Accordion Logic
         function toggleAccordion(id) {
             const element = document.getElementById(id);
-            if (element.classList.contains('hidden')) {
-                element.classList.remove('hidden');
-            } else {
-                element.classList.add('hidden');
-            }
+            const opened = element.classList.toggle('hidden') === false;
+            if (element.previousElementSibling) element.previousElementSibling.classList.toggle('acc-open', opened);
         }
 
-        // Fill Booking Form Logic
+        // Booking form
         let selectedServiceKey = '';
+
+        function buildServiceOptions() {
+            const sel = document.getElementById('f_service');
+            sel.innerHTML = '';
+            const first = document.createElement('option');
+            first.value = '';
+            first.textContent = '-- ' + uiText[currentLang].choose + ' --';
+            sel.appendChild(first);
+            Object.keys(serviceNamesMap).forEach(key => {
+                const o = document.createElement('option');
+                o.value = key;
+                o.textContent = serviceNamesMap[key][currentLang];
+                sel.appendChild(o);
+            });
+            sel.value = selectedServiceKey;
+        }
 
         function fillBookingForm(serviceKey) {
             selectedServiceKey = serviceKey;
+            document.getElementById('f_service').value = serviceKey;
             updateBookingFormArea();
-            
-            // Scroll to booking section
             document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function updateBookingFormArea() {
-            const textArea = document.getElementById('bookingText');
-            let template = formTemplates[currentLang];
-            
-            let serviceName = '';
-            if (selectedServiceKey && serviceNamesMap[selectedServiceKey]) {
-                serviceName = serviceNamesMap[selectedServiceKey][currentLang];
-            }
-
-            textArea.value = template.replace('{serviceName}', serviceName);
+        // Today's date in Japan time as YYYY-MM-DD, shifted by `addDays`
+        function jstDate(addDays) {
+            const d = new Date(Date.now() + 9 * 3600 * 1000 + addDays * 86400 * 1000);
+            return d.toISOString().slice(0, 10);
         }
 
-        // Initialize default form text
-        updateBookingFormArea();
+        // Booking deadline: 12:00 Japan time on the day before the ride
+        function isPastDeadline(iso) {
+            const [y, m, d] = iso.split('-').map(Number);
+            const deadline = Date.UTC(y, m - 1, d - 1, 3, 0, 0); // 12:00 JST = 03:00 UTC
+            return Date.now() >= deadline;
+        }
+
+        function val(id) { return document.getElementById(id).value.trim(); }
+
+        function updateBookingFormArea() {
+            const lang = currentLang;
+            const empty = emptyValues[lang];
+            selectedServiceKey = val('f_service');
+            const serviceName = selectedServiceKey && serviceNamesMap[selectedServiceKey] ? serviceNamesMap[selectedServiceKey][lang] : '';
+            const dateIso = val('f_date');
+            const num = id => (val(id) !== '' ? val(id) : empty.num);
+
+            const values = {
+                serviceName: serviceName,
+                date: dateIso ? formatDate(dateIso, lang) : empty.date,
+                time: val('f_time') || empty.time,
+                from: val('f_from'),
+                to: val('f_to'),
+                flight: val('f_flight') || empty.flight,
+                name: val('f_name'),
+                phone: val('f_phone'),
+                adults: num('f_adults'),
+                children: num('f_children'),
+                infants: num('f_infants'),
+                seats: num('f_seats'),
+                cars: num('f_cars'),
+                bags: num('f_bags')
+            };
+            document.getElementById('bookingText').value =
+                formTemplates[lang].replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
+
+            document.getElementById('deadlineWarn').classList.toggle('hidden', !(dateIso && isPastDeadline(dateIso)));
+        }
 
         // Copy to Clipboard Logic
         async function copyToClipboard() {
             const copyText = document.getElementById("bookingText");
             const btnText = document.getElementById("copyBtnText");
-            
-            // Select text
+
             copyText.select();
             copyText.setSelectionRange(0, 99999); // For mobile devices
 
             try {
-                // Modern API
                 await navigator.clipboard.writeText(copyText.value);
                 showToast();
             } catch (err) {
-                // Fallback
                 try {
-                    document.execCommand('copy');
+                    if (!document.execCommand('copy')) throw err;
                     showToast();
-                } catch (err) {
-                    btnText.innerText = "Failed";
-                    setTimeout(() => btnText.innerText = "Copy Text", 2000);
+                } catch (err2) {
+                    btnText.innerText = uiText[currentLang].copyFail;
+                    setTimeout(() => btnText.innerText = uiText[currentLang].copy, 2000);
                 }
             }
         }
@@ -1318,6 +1652,25 @@ Luggage Count: ( ) pcs`,
                 toast.classList.add("opacity-0");
             }, 2000);
         }
+
+        // Hide the floating inquiry button while the booking section is on screen
+        // (also while the top of the page, which has its own buttons, is on screen)
+        if ('IntersectionObserver' in window) {
+            const cta = document.getElementById('floatingCta');
+            const onScreen = new Set();
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => e.isIntersecting ? onScreen.add(e.target) : onScreen.delete(e.target));
+                const hide = onScreen.size > 0;
+                cta.classList.toggle('opacity-0', hide);
+                cta.classList.toggle('pointer-events-none', hide);
+            });
+            document.querySelectorAll('#hero, #booking').forEach(el => io.observe(el));
+        }
+
+        // Initialize
+        // Earliest selectable date: tomorrow, or the day after once tomorrow's deadline (12:00 JST today) has passed
+        document.getElementById('f_date').min = isPastDeadline(jstDate(1)) ? jstDate(2) : jstDate(1);
+        setLanguage(detectLanguage());
     </script>
 </body>
 </html>
